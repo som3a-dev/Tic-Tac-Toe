@@ -71,25 +71,18 @@ function Board() {
         status = "Next Player: " + turn;
     }
 
+    const squareNodes = squares.map((square, i) => <Square key={i} value={squares[i]} onSquareClick={ () => onClick(i) }/>);
+    const rowNodes = Array.from({ length: BOARD_DIMENSION }, (_, i) => (
+    <div key={i} className="board-row">
+        {squareNodes.slice(i * BOARD_DIMENSION, (i + 1) * BOARD_DIMENSION)}
+    </div>
+    ));
+
     return (
         <>
         <div className="status">{status}</div>
         <div className="board">
-            <div className="board-row">
-                <Square value={squares[0]} onSquareClick={ () => { onClick(0) } }/>
-                <Square value={squares[1]} onSquareClick={ () => { onClick(1) } }/>
-                <Square value={squares[2]} onSquareClick={ () => { onClick(2) } }/>
-            </div>
-            <div className="board-row">
-                <Square value={squares[3]} onSquareClick={ () => { onClick(3) } }/>
-                <Square value={squares[4]} onSquareClick={ () => { onClick(4) } }/>
-                <Square value={squares[5]} onSquareClick={ () => { onClick(5) } }/>
-            </div>
-            <div className="board-row">
-                <Square value={squares[6]} onSquareClick={ () => { onClick(6) } }/>
-                <Square value={squares[7]} onSquareClick={ () => { onClick(7) } }/>
-                <Square value={squares[8]} onSquareClick={ () => { onClick(8) } }/>
-            </div>
+            {rowNodes}
         </div>
         </>
     );
